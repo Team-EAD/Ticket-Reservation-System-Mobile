@@ -1,8 +1,7 @@
 # Mobile Application: User and Reservation Management
 
 Project Description:
-This mobile application is designed to streamline user management and reservation processes, catering to travelers' needs. It offers a range of features to enhance the user experience and facilitate efficient reservation management. Whether you're a traveler looking to book your next adventure or a back-office officer responsible for account reactivation, this application has you covered.
-
+This mobile application is designed to streamline user management and reservation processes, catering to travelers' needs. It offers a range of features to enhance the user experience and facilitate efficient reservation management. Whether you're a traveler looking to book your next adventure or a back-office officer responsible for account reactivation.
 # Key Features:
 
 User Management:
