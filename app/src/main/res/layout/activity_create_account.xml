@@ -126,7 +126,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:text="Sign Up"
-            android:backgroundTint="@color/red"
+            android:backgroundTint="@color/button_Blue"
             android:textColor="@color/white"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"

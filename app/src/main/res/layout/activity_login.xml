@@ -27,8 +27,8 @@
             android:inputType="text"
             android:text="LOGIN"
             android:textAlignment="center"
-            android:textColor="@color/black"
-            android:textSize="100px"
+            android:textColor="@color/button_Blue"
+            android:textSize="30dp"
             android:textStyle="bold" />
 
         <ImageView
@@ -39,7 +39,7 @@
 
         <EditText
             android:id="@+id/etUsername"
-            android:layout_width="match_parent"
+            android:layout_width="304dp"
             android:layout_height="wrap_content"
             android:hint="Username"
             android:inputType="text"
@@ -47,7 +47,7 @@
 
         <EditText
             android:id="@+id/etPassword"
-            android:layout_width="match_parent"
+            android:layout_width="301dp"
             android:layout_height="wrap_content"
             android:hint="Password"
             android:inputType="textPassword"
@@ -55,9 +55,9 @@
 
         <Button
             android:id="@+id/btnLogin"
-            android:layout_width="match_parent"
+            android:layout_width="303dp"
             android:layout_height="wrap_content"
-            android:backgroundTint="@color/red"
+            android:backgroundTint="@color/button_Blue"
             android:text="Login"
             android:textColor="@color/white"
             android:textStyle="bold" />
