@@ -102,7 +102,7 @@
             android:layout_width="150dp"
             android:layout_height="48dp"
             android:layout_marginStart="4dp"
-            android:layout_marginTop="17dp"
+            android:layout_marginTop="32dp"
             android:layout_marginEnd="19dp"
             android:layout_marginBottom="76dp"
             android:hint="No. of Tickets"
@@ -123,14 +123,14 @@
             android:hint="Train Name"
             android:inputType="text"
             android:minHeight="48dp"
-            app:layout_constraintBottom_toTopOf="@+id/btnSignUp"
+            app:layout_constraintBottom_toTopOf="@+id/btnReserve"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toEndOf="@+id/etNoOfTickets"
             app:layout_constraintTop_toBottomOf="@+id/etToStation" />
 
         <Button
-            android:id="@+id/btnSignUp"
+            android:id="@+id/btnReserve"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="96dp"
