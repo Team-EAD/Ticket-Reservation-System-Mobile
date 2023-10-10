@@ -1,5 +1,6 @@
 package com.example.travel_geeks;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -125,6 +126,8 @@ public class Create_Reservation_Activity extends AppCompatActivity {
                         public void run() {
                             Toast.makeText(Create_Reservation_Activity.this, "Reservation successful!", Toast.LENGTH_SHORT).show();
                             // Navigate to another activity or perform other actions here.
+                            startActivity(new Intent(Create_Reservation_Activity.this, View_Reservation_Activity.class));
+
                         }
                     });
                 } else {
@@ -133,6 +136,8 @@ public class Create_Reservation_Activity extends AppCompatActivity {
                         @Override
                         public void run() {
                             Toast.makeText(Create_Reservation_Activity.this, "Reservation failed. Please try again.", Toast.LENGTH_SHORT).show();
+                            startActivity(new Intent(Create_Reservation_Activity.this, Home_Activity.class));
+
                         }
                     });
                 }

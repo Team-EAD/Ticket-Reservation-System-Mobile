@@ -1,5 +1,6 @@
 package com.example.travel_geeks;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -84,6 +85,8 @@ public class Login_Activity extends AppCompatActivity {
                             hideLoadingIndicator();
                             Toast.makeText(Login_Activity.this, "Login successful", Toast.LENGTH_SHORT).show();
                             // Navigate to the next activity here
+                            startActivity(new Intent(Login_Activity.this, Home_Activity.class));
+
                         }
                     });
                 } else {

@@ -1,5 +1,6 @@
 package com.example.travel_geeks;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -150,7 +151,7 @@ public class Create_Account extends AppCompatActivity {
                         public void run() {
                             Toast.makeText(Create_Account.this, "Account Created Successfully", Toast.LENGTH_SHORT).show();
                             // Navigate to the next activity here
-                            // You can start a new activity or finish the current one
+                                startActivity(new Intent(Create_Account.this, Home_Activity.class));
                         }
                     });
                 } else {
@@ -158,7 +159,7 @@ public class Create_Account extends AppCompatActivity {
                         @Override
                         public void run() {
                             Toast.makeText(Create_Account.this, "Account Creation Failed", Toast.LENGTH_SHORT).show();
-                            // Handle the error and provide appropriate feedback to the user
+                            startActivity(new Intent(Create_Account.this, Login_Activity.class));
                         }
                     });
                 }
