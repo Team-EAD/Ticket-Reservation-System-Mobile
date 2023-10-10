@@ -22,10 +22,10 @@ public class Create_Account extends AppCompatActivity {
     private EditText firstNameEditText;
     private EditText lastNameEditText;
     private EditText nicEditText;
-    private  EditText CountryEditText;
-    private  EditText mobileEditText;
-    private  EditText  emailEditText;
-    private  EditText passwordEditText;
+    private EditText CountryEditText;
+    private EditText mobileEditText;
+    private EditText emailEditText;
+    private EditText passwordEditText;
     private Button signUpButton;
 
     @Override
@@ -51,10 +51,10 @@ public class Create_Account extends AppCompatActivity {
                 String firstName = firstNameEditText.getText().toString();
                 String lastName = lastNameEditText.getText().toString();
                 String nic = nicEditText.getText().toString();
-                String country   = CountryEditText.getText().toString();
-                String mobile    = mobileEditText.getText().toString();
-                String email     = emailEditText.getText().toString();
-                String password  = passwordEditText.getText().toString();
+                String country = CountryEditText.getText().toString();
+                String mobile = mobileEditText.getText().toString();
+                String email = emailEditText.getText().toString();
+                String password = passwordEditText.getText().toString();
 
                 // Perform input validation here
                 if (firstName.isEmpty()) {
@@ -102,30 +102,27 @@ public class Create_Account extends AppCompatActivity {
                 registerUser(firstName, lastName, nic, country, mobile, email, password);
             }
 
-            //Email validation
+            // Email validation method
             private boolean isValidEmail(String email) {
-
                 String emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
                 return email.matches(emailPattern);
             }
-
-
         });
     }
 
-    private void registerUser(String firstName, String lastName, String nic , String country, String mobile,  String email, String password ) {
+    private void registerUser(String firstName, String lastName, String nic, String country, String mobile, String email, String password) {
         OkHttpClient client = new OkHttpClient();
         FormBody formBody = new FormBody.Builder()
                 .add("first_name", firstName)
                 .add("last_name", lastName)
                 .add("nic", nic)
-                .add("country", country )
+                .add("country", country)
                 .add("mobile", mobile)
                 .add("email", email)
                 .add("password", password)
-
                 .build();
 
+        // Replace "YOUR_API_ENDPOINT_URL" with the actual URL of your backend API
         Request request = new Request.Builder()
                 .url("YOUR_API_ENDPOINT_URL")
                 .post(formBody)
@@ -136,6 +133,12 @@ public class Create_Account extends AppCompatActivity {
             public void onFailure(Call call, IOException e) {
                 // Handle registration failure
                 e.printStackTrace();
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        Toast.makeText(Create_Account.this, "Account Creation Failed", Toast.LENGTH_SHORT).show();
+                    }
+                });
             }
 
             @Override
@@ -145,21 +148,20 @@ public class Create_Account extends AppCompatActivity {
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            Toast.makeText(Create_Account.this, "Account Created Successful", Toast.LENGTH_SHORT).show();
-                            // navigate to the next activity
-
+                            Toast.makeText(Create_Account.this, "Account Created Successfully", Toast.LENGTH_SHORT).show();
+                            // Navigate to the next activity here
+                            // You can start a new activity or finish the current one
                         }
                     });
                 } else {
-                    // Registration failed
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            Toast.makeText(Create_Account.this, "Account Created Unsuccessful", Toast.LENGTH_SHORT).show();
-                            // navigate to the next activity here
-
+                            Toast.makeText(Create_Account.this, "Account Creation Failed", Toast.LENGTH_SHORT).show();
+                            // Handle the error and provide appropriate feedback to the user
                         }
-                    });                }
+                    });
+                }
             }
         });
     }

@@ -1,4 +1,4 @@
-package com.example.travel_geeks.data.model;
+package com.example.travel_geeks.Model.model;
 
 /**
  * Data class that captures user information for logged in users retrieved from LoginRepository
