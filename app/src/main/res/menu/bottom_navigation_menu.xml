@@ -9,10 +9,6 @@
         android:title="Update Reservation"
         />
     <item
-        android:id="@+id/action_delete_reservation"
-        android:title="Delete Reservation"
-         />
-    <item
         android:id="@+id/action_view_reservation"
         android:title="View Reservation"
         />
@@ -20,8 +16,4 @@
         android:id="@+id/action_deactivate_account"
         android:title="Deactivate Account"
         />
-    <item
-        android:id="@+id/action_logout"
-        android:title="Logout"
-      />
 </menu>
