@@ -26,7 +26,7 @@ public class Create_Reservation_Activity extends AppCompatActivity {
     private EditText fromEditText;
     private EditText toEditText;
     private EditText ticketCountEditText;
-    private  EditText trainNameEditText;
+    private EditText trainNameEditText;
 
     private Button reserveButton;
 
@@ -50,18 +50,18 @@ public class Create_Reservation_Activity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 // Get user input
-                String ticketType= ticketTypeEditText.getText().toString();
-                String date      = dateEditText.getText().toString();
-                String time      = timeEditText.getText().toString();
-                String from      = fromEditText.getText().toString();
-                String to        = toEditText.getText().toString();
-                String count     = ticketCountEditText.getText().toString();
+                String ticketType = ticketTypeEditText.getText().toString();
+                String date = dateEditText.getText().toString();
+                String time = timeEditText.getText().toString();
+                String from = fromEditText.getText().toString();
+                String to = toEditText.getText().toString();
+                String count = ticketCountEditText.getText().toString();
                 String trainName = trainNameEditText.getText().toString();
 
                 // Perform input validation here
                 if (isValidInput(ticketType, date, time, from, to, count, trainName)) {
                     // If input is valid, proceed with reservation
-                    performReservation(ticketType, date,  time, from, to, count, trainName);
+                    performReservation(ticketType, date, time, from, to, count, trainName);
                 } else {
                     // Display an error message for invalid input
                     Toast.makeText(Create_Reservation_Activity.this, "Invalid input. Please check your data.", Toast.LENGTH_SHORT).show();
@@ -70,11 +70,11 @@ public class Create_Reservation_Activity extends AppCompatActivity {
         });
     }
 
-    private boolean isValidInput(String ticketType, String date, String time, String from, String to, String count,String trainName ) {
+    private boolean isValidInput(String ticketType, String date, String time, String from, String to, String count, String trainName) {
         // Return true if input is valid, false otherwise
         boolean isValid = true;
 
-        //Check if ticket type and date are not empty
+        // Check if ticket type and date are not empty
         if (ticketType.isEmpty() || date.isEmpty() || time.isEmpty() || trainName.isEmpty() || from.isEmpty() || to.isEmpty()) {
             isValid = false;
         }
@@ -82,7 +82,7 @@ public class Create_Reservation_Activity extends AppCompatActivity {
         return isValid;
     }
 
-    private void performReservation(String ticketType, String date, String time, String from, String to, String count, String trainName ) {
+    private void performReservation(String ticketType, String date, String time, String from, String to, String count, String trainName) {
         OkHttpClient client = new OkHttpClient();
 
         // Prepare the request body with reservation data
@@ -94,10 +94,9 @@ public class Create_Reservation_Activity extends AppCompatActivity {
                 .add("to", to)
                 .add("count", count)
                 .add("trainName", trainName)
-
                 .build();
 
-        // Create a POST request to your API endpoint
+        // Replace "YOUR_API_ENDPOINT_URL" with the actual URL of your backend API
         Request request = new Request.Builder()
                 .url("YOUR_API_ENDPOINT_URL")
                 .post(requestBody)
@@ -125,7 +124,7 @@ public class Create_Reservation_Activity extends AppCompatActivity {
                         @Override
                         public void run() {
                             Toast.makeText(Create_Reservation_Activity.this, "Reservation successful!", Toast.LENGTH_SHORT).show();
-                           //navigate to another activity or perform other actions here.
+                            // Navigate to another activity or perform other actions here.
                         }
                     });
                 } else {

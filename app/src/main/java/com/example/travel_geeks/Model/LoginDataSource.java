@@ -1,6 +1,6 @@
-package com.example.travel_geeks.data;
+package com.example.travel_geeks.Model;
 
-import com.example.travel_geeks.data.model.LoggedInUser;
+import com.example.travel_geeks.Model.model.LoggedInUser;
 
 import java.io.IOException;
 

@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
@@ -23,6 +24,7 @@ public class Login_Activity extends AppCompatActivity {
     private EditText usernameEditText;
     private EditText passwordEditText;
     private Button loginButton;
+    private ProgressBar loadingIndicator;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -32,15 +34,16 @@ public class Login_Activity extends AppCompatActivity {
         usernameEditText = findViewById(R.id.etUsername);
         passwordEditText = findViewById(R.id.etPassword);
         loginButton = findViewById(R.id.btnLogin);
+        loadingIndicator = findViewById(R.id.loadingIndicator);
 
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Get the entered username and password
                 String username = usernameEditText.getText().toString();
                 String password = passwordEditText.getText().toString();
 
-                // Call the method to make the API request
+                showLoadingIndicator(); // Show loading indicator before making the request
+
                 performLogin(username, password);
             }
         });
@@ -49,26 +52,24 @@ public class Login_Activity extends AppCompatActivity {
     private void performLogin(String username, String password) {
         OkHttpClient client = new OkHttpClient();
 
-        // Create a request body with the username and password
         FormBody formBody = new FormBody.Builder()
                 .add("username", username)
                 .add("password", password)
                 .build();
 
         Request request = new Request.Builder()
-                .url("API_ENDPOINT_URL")
+                .url("API_ENDPOINT_URL") // Replace with your API endpoint URL
                 .post(formBody)
                 .build();
 
-        // Make the API request asynchronously
         client.newCall(request).enqueue(new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
-                // Handle the error
                 e.printStackTrace();
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
+                        hideLoadingIndicator();
                         Toast.makeText(Login_Activity.this, "Login failed", Toast.LENGTH_SHORT).show();
                     }
                 });
@@ -76,27 +77,33 @@ public class Login_Activity extends AppCompatActivity {
 
             @Override
             public void onResponse(Call call, Response response) throws IOException {
-                // Handle the API response (success or failure)
                 if (response.isSuccessful()) {
-                    // The login was successful
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
+                            hideLoadingIndicator();
                             Toast.makeText(Login_Activity.this, "Login successful", Toast.LENGTH_SHORT).show();
-                            // navigate to the next activity here
-
+                            // Navigate to the next activity here
                         }
                     });
                 } else {
-                    // The login failed
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
+                            hideLoadingIndicator();
                             Toast.makeText(Login_Activity.this, "Login failed", Toast.LENGTH_SHORT).show();
                         }
                     });
                 }
             }
         });
+    }
+
+    private void showLoadingIndicator() {
+        loadingIndicator.setVisibility(View.VISIBLE); // Show the loading indicator
+    }
+
+    private void hideLoadingIndicator() {
+        loadingIndicator.setVisibility(View.INVISIBLE); // Hide the loading indicator
     }
 }

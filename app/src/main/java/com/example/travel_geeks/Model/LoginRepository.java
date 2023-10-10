@@ -1,6 +1,6 @@
-package com.example.travel_geeks.data;
+package com.example.travel_geeks.Model;
 
-import com.example.travel_geeks.data.model.LoggedInUser;
+import com.example.travel_geeks.Model.model.LoggedInUser;
 
 /**
  * Class that requests authentication and user information from the remote data source and

@@ -1,14 +1,14 @@
 package com.example.travel_geeks.ui.login;
 
+import android.util.Patterns;
+
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-import android.util.Patterns;
-
-import com.example.travel_geeks.data.LoginRepository;
-import com.example.travel_geeks.data.Result;
-import com.example.travel_geeks.data.model.LoggedInUser;
+import com.example.travel_geeks.Model.LoginRepository;
+import com.example.travel_geeks.Model.Result;
+import com.example.travel_geeks.Model.model.LoggedInUser;
 import com.example.travel_geeks.R;
 
 public class LoginViewModel extends ViewModel {

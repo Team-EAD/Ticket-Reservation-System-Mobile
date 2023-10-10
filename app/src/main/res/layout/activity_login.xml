@@ -78,6 +78,12 @@
             android:layout_marginTop="16dp"
             android:text="Don't have an account? Sign Up" />
 
+        <ProgressBar
+            android:id="@+id/loadingIndicator"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:visibility="invisible" /> <!-- Initially invisible -->
 
     </LinearLayout>
 

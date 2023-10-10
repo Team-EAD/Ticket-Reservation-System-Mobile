@@ -1,11 +1,11 @@
 package com.example.travel_geeks.ui.login;
 
+import androidx.annotation.NonNull;
 import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.annotation.NonNull;
 
-import com.example.travel_geeks.data.LoginDataSource;
-import com.example.travel_geeks.data.LoginRepository;
+import com.example.travel_geeks.Model.LoginDataSource;
+import com.example.travel_geeks.Model.LoginRepository;
 
 /**
  * ViewModel provider factory to instantiate LoginViewModel.
