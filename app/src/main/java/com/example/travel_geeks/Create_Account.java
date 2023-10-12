@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -28,6 +29,8 @@ public class Create_Account extends AppCompatActivity {
     private EditText emailEditText;
     private EditText passwordEditText;
     private Button signUpButton;
+    private TextView tvSignIn;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,6 +47,8 @@ public class Create_Account extends AppCompatActivity {
         passwordEditText = findViewById(R.id.etPassword);
 
         signUpButton = findViewById(R.id.btnSignUp);
+        tvSignIn = findViewById(R.id.tvSignIn);
+
 
         signUpButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -109,23 +114,32 @@ public class Create_Account extends AppCompatActivity {
                 return email.matches(emailPattern);
             }
         });
+
+        tvSignIn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Navigate to the login activity when "Sign In" is clicked
+                Intent intent = new Intent(Create_Account.this, Login_Activity.class);
+                startActivity(intent);
+            }
+        });
     }
 
     private void registerUser(String firstName, String lastName, String nic, String country, String mobile, String email, String password) {
         OkHttpClient client = new OkHttpClient();
         FormBody formBody = new FormBody.Builder()
-                .add("first_name", firstName)
-                .add("last_name", lastName)
+                .add("firstName", firstName)
+                .add("lastName", lastName)
                 .add("nic", nic)
                 .add("country", country)
-                .add("mobile", mobile)
+                .add("phone", mobile)
                 .add("email", email)
                 .add("password", password)
                 .build();
 
         // Replace "YOUR_API_ENDPOINT_URL" with the actual URL of your backend API
         Request request = new Request.Builder()
-                .url("YOUR_API_ENDPOINT_URL")
+                .url("https://localhost:44304/api/Traveler\n")
                 .post(formBody)
                 .build();
 
