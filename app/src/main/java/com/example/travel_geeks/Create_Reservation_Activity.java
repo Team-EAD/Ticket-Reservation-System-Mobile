@@ -21,13 +21,12 @@ import okhttp3.Response;
 
 public class Create_Reservation_Activity extends AppCompatActivity {
 
-    private EditText ticketTypeEditText;
+    private EditText reserveDateEditText;
     private EditText dateEditText;
-    private EditText timeEditText;
     private EditText fromEditText;
     private EditText toEditText;
     private EditText ticketCountEditText;
-    private EditText trainNameEditText;
+    private EditText ticketPriceEditText;
 
     private Button reserveButton;
 
@@ -37,13 +36,12 @@ public class Create_Reservation_Activity extends AppCompatActivity {
         setContentView(R.layout.activity_create_reservation);
 
         // Initialize EditText fields and Button
-        ticketTypeEditText = findViewById(R.id.etTicketType);
+        reserveDateEditText = findViewById(R.id.etReserveDate);
         dateEditText = findViewById(R.id.etDate);
-        timeEditText = findViewById(R.id.etTime);
         fromEditText = findViewById(R.id.etFromStation);
         toEditText = findViewById(R.id.etToStation);
         ticketCountEditText = findViewById(R.id.etNoOfTickets);
-        trainNameEditText = findViewById(R.id.etTrainName);
+        ticketPriceEditText = findViewById(R.id.etPrice);
 
         reserveButton = findViewById(R.id.btnReserve);
 
@@ -51,18 +49,17 @@ public class Create_Reservation_Activity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 // Get user input
-                String ticketType = ticketTypeEditText.getText().toString();
+                String reserveDate = reserveDateEditText.getText().toString();
                 String date = dateEditText.getText().toString();
-                String time = timeEditText.getText().toString();
                 String from = fromEditText.getText().toString();
                 String to = toEditText.getText().toString();
                 String count = ticketCountEditText.getText().toString();
-                String trainName = trainNameEditText.getText().toString();
+                String price = ticketPriceEditText.getText().toString();
 
                 // Perform input validation here
-                if (isValidInput(ticketType, date, time, from, to, count, trainName)) {
+                if (isValidInput(reserveDate, date, from, to, count, price)) {
                     // If input is valid, proceed with reservation
-                    performReservation(ticketType, date, time, from, to, count, trainName);
+                    performReservation(reserveDate, date, from, to, count, price);
                 } else {
                     // Display an error message for invalid input
                     Toast.makeText(Create_Reservation_Activity.this, "Invalid input. Please check your data.", Toast.LENGTH_SHORT).show();
@@ -71,35 +68,34 @@ public class Create_Reservation_Activity extends AppCompatActivity {
         });
     }
 
-    private boolean isValidInput(String ticketType, String date, String time, String from, String to, String count, String trainName) {
+    private boolean isValidInput(String reserveDate, String date, String from, String to, String count, String price) {
         // Return true if input is valid, false otherwise
         boolean isValid = true;
 
         // Check if ticket type and date are not empty
-        if (ticketType.isEmpty() || date.isEmpty() || time.isEmpty() || trainName.isEmpty() || from.isEmpty() || to.isEmpty()) {
+        if (reserveDate.isEmpty() || date.isEmpty() || price.isEmpty() || from.isEmpty() || to.isEmpty()) {
             isValid = false;
         }
 
         return isValid;
     }
 
-    private void performReservation(String ticketType, String date, String time, String from, String to, String count, String trainName) {
+    private void performReservation( String reserveDate, String date, String from, String to, String count, String price) {
         OkHttpClient client = new OkHttpClient();
 
         // Prepare the request body with reservation data
         RequestBody requestBody = new FormBody.Builder()
-                .add("ticket_type", ticketType)
-                .add("date", date)
-                .add("time", time)
-                .add("from", from)
-                .add("to", to)
-                .add("count", count)
-                .add("trainName", trainName)
+                .add("reservationDate", reserveDate)
+                .add("tripDate", date)
+                .add("departureLocation", from)
+                .add("departureLocation", to)
+                .add("numberOfTickets", count)
+                .add("price", price)
                 .build();
 
-        // Replace "YOUR_API_ENDPOINT_URL" with the actual URL of your backend API
+        // backend API
         Request request = new Request.Builder()
-                .url("YOUR_API_ENDPOINT_URL")
+                .url("https://localhost:44304/api/TicketReservation")
                 .post(requestBody)
                 .build();
 

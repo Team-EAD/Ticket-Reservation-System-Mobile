@@ -6,6 +6,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
@@ -26,6 +27,7 @@ public class Login_Activity extends AppCompatActivity {
     private EditText passwordEditText;
     private Button loginButton;
     private ProgressBar loadingIndicator;
+    private TextView signUpButton;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -35,6 +37,7 @@ public class Login_Activity extends AppCompatActivity {
         usernameEditText = findViewById(R.id.etUsername);
         passwordEditText = findViewById(R.id.etPassword);
         loginButton = findViewById(R.id.btnLogin);
+        signUpButton =  findViewById(R.id.tvSignUp);
         loadingIndicator = findViewById(R.id.loadingIndicator);
 
         loginButton.setOnClickListener(new View.OnClickListener() {
@@ -48,6 +51,15 @@ public class Login_Activity extends AppCompatActivity {
                 performLogin(username, password);
             }
         });
+
+        signUpButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Navigate to the login activity when "Sign In" is clicked
+                Intent intent = new Intent(Login_Activity.this, Create_Account.class);
+                startActivity(intent);
+            }
+        });
     }
 
     private void performLogin(String username, String password) {
@@ -59,7 +71,7 @@ public class Login_Activity extends AppCompatActivity {
                 .build();
 
         Request request = new Request.Builder()
-                .url("API_ENDPOINT_URL") // Replace with your API endpoint URL
+                .url("https://localhost:44304/api/Traveler/id") // Replace with your API endpoint URL
                 .post(formBody)
                 .build();
 

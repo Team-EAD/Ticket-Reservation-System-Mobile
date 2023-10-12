@@ -63,14 +63,6 @@
             android:textStyle="bold" />
 
         <TextView
-            android:id="@+id/tvForgotPassword"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginTop="16dp"
-            android:text="Forgot Password?" />
-
-        <TextView
             android:id="@+id/tvSignUp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -83,7 +75,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:visibility="invisible" /> <!-- Initially invisible -->
+            android:visibility="invisible" />
 
     </LinearLayout>
 
