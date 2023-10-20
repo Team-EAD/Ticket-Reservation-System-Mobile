@@ -10,45 +10,43 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import java.io.IOException;
+import com.example.travel_geeks.DatabaseHelper.DatabaseHelper;
 
-import okhttp3.Call;
-import okhttp3.Callback;
-import okhttp3.FormBody;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.Response;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 
 public class Create_Account extends AppCompatActivity {
 
     private EditText firstNameEditText;
     private EditText lastNameEditText;
     private EditText nicEditText;
-    private EditText CountryEditText;
+    private EditText countryEditText;
     private EditText mobileEditText;
     private EditText emailEditText;
     private EditText passwordEditText;
     private Button signUpButton;
     private TextView tvSignIn;
-
+    private DatabaseHelper databaseHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_account);
 
+        databaseHelper = new DatabaseHelper(this);
+
         // Initialize EditText fields and Button
         firstNameEditText = findViewById(R.id.etFirstName);
         lastNameEditText = findViewById(R.id.etLastName);
         nicEditText = findViewById(R.id.etNIC);
-        CountryEditText = findViewById(R.id.etCountry);
+        countryEditText = findViewById(R.id.etCountry);
         mobileEditText = findViewById(R.id.etPhoneNumber);
         emailEditText = findViewById(R.id.etEmail);
         passwordEditText = findViewById(R.id.etPassword);
 
         signUpButton = findViewById(R.id.btnSignUp);
         tvSignIn = findViewById(R.id.tvSignIn);
-
 
         signUpButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -57,61 +55,25 @@ public class Create_Account extends AppCompatActivity {
                 String firstName = firstNameEditText.getText().toString();
                 String lastName = lastNameEditText.getText().toString();
                 String nic = nicEditText.getText().toString();
-                String country = CountryEditText.getText().toString();
+                String country = countryEditText.getText().toString();
                 String mobile = mobileEditText.getText().toString();
                 String email = emailEditText.getText().toString();
                 String password = passwordEditText.getText().toString();
 
                 // Perform input validation here
-                if (firstName.isEmpty()) {
-                    firstNameEditText.setError("First name is required");
-                    return;
-                }
-
-                if (lastName.isEmpty()) {
-                    lastNameEditText.setError("Last name is required");
-                    return;
-                }
-
-                if (nic.isEmpty()) {
-                    nicEditText.setError("NIC is required");
-                    return;
-                }
-
-                if (country.isEmpty()) {
-                    CountryEditText.setError("Country is required");
-                    return;
-                }
-
-                if (mobile.isEmpty()) {
-                    mobileEditText.setError("Mobile number is required");
-                    return;
-                }
-
-                if (email.isEmpty()) {
-                    emailEditText.setError("Email is required");
+                if (firstName.isEmpty() || lastName.isEmpty() || nic.isEmpty() || country.isEmpty() || mobile.isEmpty() || email.isEmpty() || password.isEmpty()) {
+                    Toast.makeText(Create_Account.this, "All fields are required", Toast.LENGTH_SHORT).show();
                     return;
                 } else if (!isValidEmail(email)) {
                     emailEditText.setError("Invalid email format");
                     return;
                 }
 
-                if (password.isEmpty()) {
-                    passwordEditText.setError("Password is required");
-                    return;
-                } else if (password.length() < 6) {
-                    passwordEditText.setError("Password must be at least 6 characters");
-                    return;
-                }
+                //password insert validations
+                new PasswordStrengthValidator();
 
-                // Make API call for registration
-                registerUser(firstName, lastName, nic, country, mobile, email, password);
-            }
-
-            // Email validation method
-            private boolean isValidEmail(String email) {
-                String emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
-                return email.matches(emailPattern);
+                // Save user account data to the local database
+                saveUserAccount(firstName, lastName, nic, country, mobile, email, password);
             }
         });
 
@@ -125,59 +87,49 @@ public class Create_Account extends AppCompatActivity {
         });
     }
 
-    private void registerUser(String firstName, String lastName, String nic, String country, String mobile, String email, String password) {
-        OkHttpClient client = new OkHttpClient();
-        FormBody formBody = new FormBody.Builder()
-                .add("firstName", firstName)
-                .add("lastName", lastName)
-                .add("nic", nic)
-                .add("country", country)
-                .add("phone", mobile)
-                .add("email", email)
-                .add("password", password)
-                .build();
+    // Email validation method
+    private boolean isValidEmail(String email) {
+        String emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
+        return email.matches(emailPattern);
+    }
 
-        // Replace "YOUR_API_ENDPOINT_URL" with the actual URL of your backend API
-        Request request = new Request.Builder()
-                .url("https://localhost:44304/api/Traveler\n")
-                .post(formBody)
-                .build();
+    // Save user account data to the local database
+    private void saveUserAccount(String firstName, String lastName, String nic, String country, String mobile, String email, String password) {
+        databaseHelper.addUserAccount(firstName, lastName, nic, country, mobile, email, password);
+        Toast.makeText(Create_Account.this, "Account Created Successfully", Toast.LENGTH_SHORT).show();
+        startActivity(new Intent(Create_Account.this, Home_Activity.class));
+    }
 
-        client.newCall(request).enqueue(new Callback() {
-            @Override
-            public void onFailure(Call call, IOException e) {
-                // Handle registration failure
-                e.printStackTrace();
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        Toast.makeText(Create_Account.this, "Account Creation Failed", Toast.LENGTH_SHORT).show();
-                    }
-                });
-            }
 
-            @Override
-            public void onResponse(Call call, Response response) throws IOException {
-                // Handle registration success or failure based on the API response
-                if (response.isSuccessful()) {
-                    runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            Toast.makeText(Create_Account.this, "Account Created Successfully", Toast.LENGTH_SHORT).show();
-                            // Navigate to the next activity here
-                                startActivity(new Intent(Create_Account.this, Home_Activity.class));
-                        }
-                    });
-                } else {
-                    runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            Toast.makeText(Create_Account.this, "Account Creation Failed", Toast.LENGTH_SHORT).show();
-                            startActivity(new Intent(Create_Account.this, Login_Activity.class));
-                        }
-                    });
-                }
-            }
-        });
+    //password validations
+    public class PasswordStrengthValidator {
+
+        public boolean isStrongPassword(String password) {
+            // Check if the password meets the criteria for a strong password
+            return isLongEnough(password) && hasUppercaseLetter(password) && hasLowercaseLetter(password) && hasSpecialCharacter(password);
+        }
+
+        public boolean isLongEnough(String password) {
+            return password.length() >= 8;
+        }
+
+        public boolean hasUppercaseLetter(String password) {
+            return !password.equals(password.toLowerCase());
+        }
+
+        public boolean hasLowercaseLetter(String password) {
+            return !password.equals(password.toUpperCase());
+        }
+
+        public boolean hasSpecialCharacter(String password) {
+            Pattern pattern = Pattern.compile("[!@#$%^&*()_+=|<>?{}\\[\\]~-]");
+            Matcher matcher = pattern.matcher(password);
+            return matcher.find();
+        }
+
+        public String suggestPassword() {
+            // Suggest a strong password
+            return "SuggestedPassword123!";
+        }
     }
 }

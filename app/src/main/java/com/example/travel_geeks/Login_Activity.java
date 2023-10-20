@@ -1,5 +1,4 @@
 package com.example.travel_geeks;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -12,14 +11,7 @@ import android.widget.Toast;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
-import java.io.IOException;
-
-import okhttp3.Call;
-import okhttp3.Callback;
-import okhttp3.FormBody;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.Response;
+import com.example.travel_geeks.DatabaseHelper.DatabaseHelper;
 
 public class Login_Activity extends AppCompatActivity {
 
@@ -28,16 +20,19 @@ public class Login_Activity extends AppCompatActivity {
     private Button loginButton;
     private ProgressBar loadingIndicator;
     private TextView signUpButton;
+    private DatabaseHelper databaseHelper;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
+        databaseHelper = new DatabaseHelper(this);
+
         usernameEditText = findViewById(R.id.etUsername);
         passwordEditText = findViewById(R.id.etPassword);
         loginButton = findViewById(R.id.btnLogin);
-        signUpButton =  findViewById(R.id.tvSignUp);
+        signUpButton = findViewById(R.id.tvSignUp);
         loadingIndicator = findViewById(R.id.loadingIndicator);
 
         loginButton.setOnClickListener(new View.OnClickListener() {
@@ -48,6 +43,7 @@ public class Login_Activity extends AppCompatActivity {
 
                 showLoadingIndicator(); // Show loading indicator before making the request
 
+                // Perform login with the local database
                 performLogin(username, password);
             }
         });
@@ -55,7 +51,7 @@ public class Login_Activity extends AppCompatActivity {
         signUpButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Navigate to the login activity when "Sign In" is clicked
+                // Navigate to the create account activity when "Sign Up" is clicked
                 Intent intent = new Intent(Login_Activity.this, Create_Account.class);
                 startActivity(intent);
             }
@@ -63,55 +59,15 @@ public class Login_Activity extends AppCompatActivity {
     }
 
     private void performLogin(String username, String password) {
-        OkHttpClient client = new OkHttpClient();
-
-        FormBody formBody = new FormBody.Builder()
-                .add("username", username)
-                .add("password", password)
-                .build();
-
-        Request request = new Request.Builder()
-                .url("https://localhost:44304/api/Traveler/id") // Replace with your API endpoint URL
-                .post(formBody)
-                .build();
-
-        client.newCall(request).enqueue(new Callback() {
-            @Override
-            public void onFailure(Call call, IOException e) {
-                e.printStackTrace();
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        hideLoadingIndicator();
-                        Toast.makeText(Login_Activity.this, "Login failed", Toast.LENGTH_SHORT).show();
-                    }
-                });
-            }
-
-            @Override
-            public void onResponse(Call call, Response response) throws IOException {
-                if (response.isSuccessful()) {
-                    runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            hideLoadingIndicator();
-                            Toast.makeText(Login_Activity.this, "Login successful", Toast.LENGTH_SHORT).show();
-                            // Navigate to the next activity here
-                            startActivity(new Intent(Login_Activity.this, Home_Activity.class));
-
-                        }
-                    });
-                } else {
-                    runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            hideLoadingIndicator();
-                            Toast.makeText(Login_Activity.this, "Login failed", Toast.LENGTH_SHORT).show();
-                        }
-                    });
-                }
-            }
-        });
+        boolean isLoginSuccessful = databaseHelper.checkUserCredentials(username, password);
+        if (isLoginSuccessful) {
+            hideLoadingIndicator();
+            Toast.makeText(Login_Activity.this, "Login successful", Toast.LENGTH_SHORT).show();
+            startActivity(new Intent(Login_Activity.this, Home_Activity.class));
+        } else {
+            hideLoadingIndicator();
+            Toast.makeText(Login_Activity.this, "Login failed", Toast.LENGTH_SHORT).show();
+        }
     }
 
     private void showLoadingIndicator() {

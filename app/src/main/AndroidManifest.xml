@@ -29,7 +29,7 @@
             android:name=".View_Reservation_Activity"
             android:exported="false" />
         <activity
-            android:name=".Create_Reservation_Activity"
+            android:name=".Splash_Screen_Activity"
             android:exported="false" />
         <activity
             android:name=".Deactivate_Account_Activity"
@@ -45,7 +45,7 @@
             android:name=".Create_Account"
             android:exported="false" />
         <activity
-            android:name=".Splash_Screen_Activity"
+            android:name=".Create_Reservation_Activity"
             android:exported="true"
             android:theme="@style/SplashTheme">
             <intent-filter>

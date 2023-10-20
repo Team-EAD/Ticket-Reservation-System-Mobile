@@ -58,7 +58,7 @@ public class Home_Activity extends AppCompatActivity {
             }
         });
 
-                // Set up click listeners for the buttons to navigate to other activities
+        // Set up click listeners for the buttons to navigate to other activities
         btnCreateReservation.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

@@ -1,49 +1,50 @@
 package com.example.travel_geeks;
 
+import android.app.AlertDialog;
+import android.app.DatePickerDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.NumberPicker;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import java.io.IOException;
+import com.example.travel_geeks.DatabaseHelper.DatabaseHelper;
 
-import okhttp3.Call;
-import okhttp3.Callback;
-import okhttp3.FormBody;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.RequestBody;
-import okhttp3.Response;
+import java.util.Calendar;
 
 public class Edit_Reservation_Activity extends AppCompatActivity {
 
-    private EditText ticketTypeEditText;
+    private EditText reserveDateEditText;
     private EditText dateEditText;
-    private EditText timeEditText;
     private EditText fromEditText;
     private EditText toEditText;
     private EditText ticketCountEditText;
-    private EditText trainNameEditText;
+    private EditText ticketPriceEditText;
 
     private Button updateButton;
     private Button deleteButton;
+
+    private DatabaseHelper databaseHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_reservation);
 
+        databaseHelper = new DatabaseHelper(this);
+
         // Initialize EditText fields and Buttons
-        ticketTypeEditText = findViewById(R.id.etTicketType);
+        reserveDateEditText = findViewById(R.id.etReserveDate);
         dateEditText = findViewById(R.id.etDate);
-        timeEditText = findViewById(R.id.etTime);
         fromEditText = findViewById(R.id.etFromStation);
         toEditText = findViewById(R.id.etToStation);
         ticketCountEditText = findViewById(R.id.etNoOfTickets);
-        trainNameEditText = findViewById(R.id.etTrainName);
+        ticketPriceEditText = findViewById(R.id.etPrice);
 
         updateButton = findViewById(R.id.btnUpdate);
         deleteButton = findViewById(R.id.btnDelete);
@@ -53,6 +54,8 @@ public class Edit_Reservation_Activity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 // Handle update reservation logic here
+                showNumberPicker();
+                showDatePicker();
                 updateReservation();
             }
         });
@@ -70,114 +73,83 @@ public class Edit_Reservation_Activity extends AppCompatActivity {
     // Method to update reservation
     private void updateReservation() {
         // Get values from EditText fields
-        String ticketType = ticketTypeEditText.getText().toString();
+        String reserveDate = reserveDateEditText.getText().toString();
         String date = dateEditText.getText().toString();
-        String time = timeEditText.getText().toString();
         String from = fromEditText.getText().toString();
         String to = toEditText.getText().toString();
         String ticketCount = ticketCountEditText.getText().toString();
-        String trainName = trainNameEditText.getText().toString();
+        String ticketPrice = ticketPriceEditText.getText().toString();
 
-        // Create a JSON request body with updated reservation data
-        RequestBody requestBody = new FormBody.Builder()
-                .add("ticket_type", ticketType)
-                .add("date", date)
-                .add("time", time)
-                .add("from", from)
-                .add("to", to)
-                .add("ticket_count", ticketCount)
-                .add("train_name", trainName)
-                .build();
+        // Update the reservation in the database
+        databaseHelper.updateReservation(1, reserveDate, date, from, to, ticketCount, ticketPrice);
 
-        // Make an API PUT request to update the reservation
-        OkHttpClient client = new OkHttpClient();
-        Request request = new Request.Builder()
-                .url("YOUR_API_UPDATE_ENDPOINT_URL")
-                .put(requestBody)
-                .build();
+        // Display a toast message for successful update
+        Toast.makeText(this, "Reservation updated successfully", Toast.LENGTH_SHORT).show();
 
-        client.newCall(request).enqueue(new Callback() {
-            @Override
-            public void onFailure(Call call, IOException e) {
-                // Handle update failure
-                e.printStackTrace();
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        Toast.makeText(Edit_Reservation_Activity.this, "Update failed. Please try again.", Toast.LENGTH_SHORT).show();
-                    }
-                });
-            }
-
-            @Override
-            public void onResponse(Call call, Response response) throws IOException {
-                if (response.isSuccessful()) {
-                    // Reservation updated successfully
-                    runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            Toast.makeText(Edit_Reservation_Activity.this, "Reservation updated successfully", Toast.LENGTH_SHORT).show();
-                            // Handle any further actions or navigate to another activity
-                        }
-                    });
-                } else {
-                    // Update failed
-                    runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            Toast.makeText(Edit_Reservation_Activity.this, "Update failed. Please try again.", Toast.LENGTH_SHORT).show();
-                        }
-                    });
-                }
-            }
-        });
+        // Handle any further actions or navigate to another activity
     }
 
     // Method to delete reservation
     private void deleteReservation() {
-        // Perform delete reservation logic here
+        // Delete the reservation from the database
+        // Replace the parameter with the actual reservation ID to delete
+        databaseHelper.deleteReservation(1);
 
-        // Make an API DELETE request to delete the reservation
-        OkHttpClient client = new OkHttpClient();
-        Request request = new Request.Builder()
-                .url("YOUR_API_DELETE_ENDPOINT_URL")
-                .delete()
-                .build();
+        // Display a toast message for successful deletion
+        Toast.makeText(this, "Reservation deleted successfully", Toast.LENGTH_SHORT).show();
 
-        client.newCall(request).enqueue(new Callback() {
+    }
+
+    //Other methods
+    //Count-picker for tickets
+    private void showNumberPicker() {
+        final NumberPicker numberPicker = new NumberPicker(this);
+        numberPicker.setMinValue(1);
+        numberPicker.setMaxValue(100);
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setView(numberPicker);
+        builder.setTitle("Select Number of Tickets");
+        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
             @Override
-            public void onFailure(Call call, IOException e) {
-                // Handle delete failure
-                e.printStackTrace();
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        Toast.makeText(Edit_Reservation_Activity.this, "Delete failed. Please try again.", Toast.LENGTH_SHORT).show();
-                    }
-                });
-            }
-
-            @Override
-            public void onResponse(Call call, Response response) throws IOException {
-                if (response.isSuccessful()) {
-                    // Reservation deleted successfully
-                    runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            Toast.makeText(Edit_Reservation_Activity.this, "Reservation deleted successfully", Toast.LENGTH_SHORT).show();
-                            // Handle any further actions or navigate to another activity
-                        }
-                    });
-                } else {
-                    // Delete failed
-                    runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            Toast.makeText(Edit_Reservation_Activity.this, "Delete failed. Please try again.", Toast.LENGTH_SHORT).show();
-                        }
-                    });
-                }
+            public void onClick(DialogInterface dialog, int which) {
+                ticketCountEditText.setText(String.valueOf(numberPicker.getValue()));
             }
         });
+        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
+
+        builder.show();
+    }
+
+    //datetime picker method
+    private void showDatePicker() {
+        Calendar calendar = Calendar.getInstance();
+        int year = calendar.get(Calendar.YEAR);
+        int month = calendar.get(Calendar.MONTH);
+        int day = calendar.get(Calendar.DAY_OF_MONTH);
+
+
+        DatePickerDialog datePickerDialog = new DatePickerDialog(this, new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+
+
+                // Set the selected date in the EditText
+                String selectedDate = year + "-" + (month + 1) + "-" + dayOfMonth;
+                reserveDateEditText.setText(selectedDate);
+                dateEditText.setText(selectedDate);
+
+            }
+        }, year, month, day);
+
+        // Set the minimum date to today
+        datePickerDialog.getDatePicker().setMinDate(calendar.getTimeInMillis());
+
+        datePickerDialog.show();
     }
 }
