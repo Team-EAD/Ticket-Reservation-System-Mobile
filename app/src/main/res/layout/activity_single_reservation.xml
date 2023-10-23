@@ -7,41 +7,59 @@
 
     <!-- Add TextViews or other views to display reservation details -->
     <TextView
-        android:id="@+id/textViewTicketType"
+        android:id="@+id/textViewReferenceID"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Ticket Type: "
+        android:text="Reference ID: "
         android:textStyle="bold" />
-
-    <TextView
-        android:id="@+id/textViewDate"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Date : " />
 
     <TextView
         android:id="@+id/textViewTime"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Time : " />
+        android:text="Time: " />
 
     <TextView
-        android:id="@+id/textViewFrom"
+        android:id="@+id/textViewReserveTrainName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="From : " />
+        android:text="Reserved Train Name: " />
 
     <TextView
-        android:id="@+id/textViewTo"
+        android:id="@+id/textViewReserveTrainID"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="To : " />
+        android:text="Reserved Train ID: " />
 
     <TextView
-        android:id="@+id/textViewName"
+        android:id="@+id/textViewReservationDate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Train : " />
+        android:text="Reservation Date: " />
+
+    <TextView
+        android:id="@+id/textViewBookingDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Booking Date: " />
+
+    <TextView
+        android:id="@+id/textViewNumberOfTickets"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Number of Tickets: " />
+
+    <TextView
+        android:id="@+id/textViewDepartureLocation"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Departure Location: " />
+
+    <TextView
+        android:id="@+id/textViewDestination"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Destination: " />
 
     <!-- Add more TextViews for other reservation details -->
 

@@ -60,7 +60,19 @@
             app:layout_constraintBottom_toTopOf="@+id/etCountry"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/etLastName" />
+            app:layout_constraintTop_toBottomOf="@id/etDoB" />
+
+        <EditText
+            android:id="@+id/etDoB"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:hint="Date of Birth"
+            android:inputType="text"
+            android:minHeight="48dp"
+            app:layout_constraintBottom_toTopOf="@+id/etNIC"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/etCountry" />
 
         <EditText
             android:id="@+id/etCountry"
@@ -105,21 +117,10 @@
             android:hint="Password"
             android:inputType="textPassword"
             android:minHeight="48dp"
-            app:layout_constraintBottom_toTopOf="@+id/etReEnterPassword"
+            app:layout_constraintBottom_toTopOf="@+id/btnSignUp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/etEmail" />
-
-        <EditText
-            android:id="@+id/etReEnterPassword"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:hint="Re-enter Password"
-            android:inputType="textPassword"
-            android:minHeight="48dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/etPassword" />
 
         <Button
             android:id="@+id/btnSignUp"
@@ -131,7 +132,7 @@
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/etReEnterPassword"
+            app:layout_constraintTop_toBottomOf="@id/etPassword"
             app:layout_constraintBottom_toTopOf="@id/tvSignIn" />
 
         <TextView

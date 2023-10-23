@@ -9,4 +9,86 @@
     <string name="invalid_username">Not a valid username</string>
     <string name="invalid_password">Password must be >5 characters</string>
     <string name="login_failed">"Login failed"</string>
+
+    <string-array name="locations_array">
+        <item>Maradana</item>
+        <item>Dematagoda</item>
+        <item>Kelaniya</item>
+        <item>Wanawasala</item>
+        <item>Hunupitiya</item>
+        <item>Enderamulla</item>
+        <item>Horape</item>
+        <item>Ragama</item>
+        <item>Walpola</item>
+        <item>Batuwatte</item>
+        <item>Bulugahagoda</item>
+        <item>Ganemulla</item>
+        <item>Yagoda</item>
+        <item>Gampaha</item>
+        <item>Daraluwa</item>
+        <item>Bemmulla</item>
+        <item>Magelegoda</item>
+        <item>Heendeniya</item>
+        <item>Veyangoda</item>
+        <item>Wandurawa</item>
+        <item>Keenawala</item>
+        <item>Pallewala</item>
+        <item>Ganegoda</item>
+        <item>Wijayarajadahana</item>
+        <item>Mihirigama</item>
+        <item>Wilwatte</item>
+        <item>Botale</item>
+        <item>Abeypussa</item>
+        <item>Yattalgoda</item>
+        <item>Buthgamuwa</item>
+        <item>Alawwa</item>
+        <item>Wlakubura</item>
+        <item>Poplgahawela</item>
+        <item>Panaleeya</item>
+        <item>Tismalpola</item>
+        <item>Yatagama</item>
+        <item>Rambukkana</item>
+        <item>Kadigamuwa</item>
+        <item>Gangoda</item>
+        <item>Ihalakotte</item>
+        <item>Balana</item>
+        <item>Kadugannawa</item>
+        <item>Pilimatalawa</item>
+        <item>Peradeniya</item>
+        <item>Koshinna</item>
+        <item>Gelioya</item>
+        <item>Gampola</item>
+        <item>Tembligala</item>
+        <item>Ulapone</item>
+        <item>Nawalapitiya</item>
+        <item>Inguruoya</item>
+        <item>Galaboda</item>
+        <item>Watawala</item>
+        <item>Ihalawatawala</item>
+        <item>Rosella</item>
+        <item>Hatton</item>
+        <item>Kotagala</item>
+        <item>Talawakele</item>
+        <item>watagoda</item>
+        <item>Greatwestern</item>
+        <item>Radella</item>
+        <item>Nanuoya</item>
+        <item>Perakumpura</item>
+        <item>Ambewela</item>
+        <item>Pattipola</item>
+        <item>Ohiya</item>
+        <item>Idalgasinna</item>
+        <item>Haputale</item>
+        <item>Deyatalawa</item>
+        <item>Bandarawela</item>
+        <item>Kinigama</item>
+        <item>Heeloya</item>
+        <item>Kitalelle</item>
+        <item>Elle</item>
+        <item>Demodara</item>
+        <item>Uduwara</item>
+        <item>Haliela</item>
+        <item>Badulla</item>
+    </string-array>
+
 </resources>

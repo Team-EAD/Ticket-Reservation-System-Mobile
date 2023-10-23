@@ -1,13 +1,15 @@
 package com.example.travel_geeks.Model;
 
 public class Reservation {
-    private String ticketType;
-    private String date;
+    private String referenceID;
     private String time;
-    private String fromStation;
-    private String toStation;
+    private String reservetrainName;
+    private String reservetrainID;
+    private String reservationDate;
+    private String bookingDate;
     private int numberOfTickets;
-    private String trainName;
+    private String departureLocation;
+    private String destination;
 
     // Constructors (you can have default and parameterized constructors)
 
@@ -15,32 +17,26 @@ public class Reservation {
         // Default constructor
     }
 
-    public Reservation(String ticketType, String date, String time, String fromStation, String toStation, int numberOfTickets, String trainName) {
-        this.ticketType = ticketType;
-        this.date = date;
+    public Reservation(String referenceID, String time, String reservetrainName, String reservetrainID, String reservationDate, String bookingDate, int numberOfTickets, String departureLocation, String destination) {
+        this.referenceID = referenceID;
         this.time = time;
-        this.fromStation = fromStation;
-        this.toStation = toStation;
+        this.reservetrainName = reservetrainName;
+        this.reservetrainID = reservetrainID;
+        this.reservationDate = reservationDate;
+        this.bookingDate = bookingDate;
         this.numberOfTickets = numberOfTickets;
-        this.trainName = trainName;
+        this.departureLocation = departureLocation;
+        this.destination = destination;
     }
 
     // Getters and setters for each field
 
-    public String getTicketType() {
-        return ticketType;
+    public String getReferenceID() {
+        return referenceID;
     }
 
-    public void setTicketType(String ticketType) {
-        this.ticketType = ticketType;
-    }
-
-    public String getDate() {
-        return date;
-    }
-
-    public void setDate(String date) {
-        this.date = date;
+    public void setReferenceID(String referenceID) {
+        this.referenceID = referenceID;
     }
 
     public String getTime() {
@@ -51,20 +47,36 @@ public class Reservation {
         this.time = time;
     }
 
-    public String getFromStation() {
-        return fromStation;
+    public String getReservetrainName() {
+        return reservetrainName;
     }
 
-    public void setFromStation(String fromStation) {
-        this.fromStation = fromStation;
+    public void setReservetrainName(String reservetrainName) {
+        this.reservetrainName = reservetrainName;
     }
 
-    public String getToStation() {
-        return toStation;
+    public String getReservetrainID() {
+        return reservetrainID;
     }
 
-    public void setToStation(String toStation) {
-        this.toStation = toStation;
+    public void setReservetrainID(String reservetrainID) {
+        this.reservetrainID = reservetrainID;
+    }
+
+    public String getReservationDate() {
+        return reservationDate;
+    }
+
+    public void setReservationDate(String reservationDate) {
+        this.reservationDate = reservationDate;
+    }
+
+    public String getBookingDate() {
+        return bookingDate;
+    }
+
+    public void setBookingDate(String bookingDate) {
+        this.bookingDate = bookingDate;
     }
 
     public int getNumberOfTickets() {
@@ -75,11 +87,19 @@ public class Reservation {
         this.numberOfTickets = numberOfTickets;
     }
 
-    public String getTrainName() {
-        return trainName;
+    public String getDepartureLocation() {
+        return departureLocation;
     }
 
-    public void setTrainName(String trainName) {
-        this.trainName = trainName;
+    public void setDepartureLocation(String departureLocation) {
+        this.departureLocation = departureLocation;
+    }
+
+    public String getDestination() {
+        return destination;
+    }
+
+    public void setDestination(String destination) {
+        this.destination = destination;
     }
 }

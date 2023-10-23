@@ -51,7 +51,7 @@ public class Deactivate_Account_Activity extends AppCompatActivity {
 
         // Create a request to your API endpoint for account deactivation
         Request request = new Request.Builder()
-                .url("YOUR_API_ENDPOINT_URL/user/deactivate/" + userId) //  API endpoint
+                .url("https://localhost:44304/api/Traveler/deactivate" + userId) //  API endpoint
                 .post(new FormBody.Builder().build())
                 .build();
 
