@@ -9,124 +9,97 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="16dp">
-
-        <TextView
-            android:id="@+id/tvCreateAccount"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Edit an Reservation"
-            android:textAlignment="center"
-            android:textSize="24sp"
-            android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+        android:padding="16dp"> <TextView
+        android:id="@+id/tvCreateAccount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Make an Reservation"
+        android:textAlignment="center"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
         <EditText
-            android:id="@+id/etTicketType"
-            android:layout_width="0dp"
+            android:id="@+id/referenceID"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="32dp"
-            android:hint="Ticket Type"
+            android:layout_marginTop="16dp"
+            android:hint="Reference ID"
             android:inputType="text"
             android:minHeight="48dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tvCreateAccount" />
 
         <EditText
-            android:id="@+id/etDate"
-            android:layout_width="380dp"
-            android:layout_height="52dp"
-            android:layout_marginTop="16dp"
-            android:hint="Date"
-            android:inputType="date"
-            android:minHeight="48dp"
-            app:layout_constraintBottom_toTopOf="@+id/etTime"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/etTicketType" />
-
-
-        <EditText
-            android:id="@+id/etTime"
-            android:layout_width="0dp"
+            android:id="@+id/reservetime"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            android:layout_marginBottom="1dp"
-            android:hint="Time"
+            android:hint="Reservation Time"
             android:inputType="time"
             android:minHeight="48dp"
-            app:layout_constraintBottom_toTopOf="@+id/etFromStation"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/etDate"
-            tools:ignore="MissingConstraints" />
+            app:layout_constraintTop_toBottomOf="@+id/referenceID" />
 
         <EditText
-            android:id="@+id/etFromStation"
-            android:layout_width="379dp"
-            android:layout_height="53dp"
-            android:layout_marginStart="16dp"
+            android:id="@+id/reservetrainName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            android:layout_marginBottom="16dp"
-            android:hint="From (Station)"
-            android:inputType="text"
-            android:minHeight="48dp"
-            app:layout_constraintBottom_toTopOf="@+id/etToStation"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="1.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/etTime" />
-
-        <EditText
-            android:id="@+id/etToStation"
-            android:layout_width="382dp"
-            android:layout_height="53dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="17dp"
-            android:layout_marginBottom="16dp"
-            android:hint="To (Station)"
-            android:inputType="text"
-            android:minHeight="48dp"
-            app:layout_constraintBottom_toTopOf="@+id/etTrainName"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/etFromStation" />
-
-        <EditText
-            android:id="@+id/etNoOfTickets"
-            android:layout_width="150dp"
-            android:layout_height="48dp"
-            android:layout_marginStart="4dp"
-            android:layout_marginTop="32dp"
-            android:layout_marginEnd="19dp"
-            android:layout_marginBottom="76dp"
-            android:hint="No. of Tickets"
-            android:inputType="number"
-            android:minHeight="48dp"
-            app:layout_constraintBottom_toTopOf="@+id/btnUpdate"
-            app:layout_constraintEnd_toStartOf="@+id/etTrainName"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/etToStation"
-            app:layout_constraintVertical_bias="0.0" />
-
-        <EditText
-            android:id="@+id/etTrainName"
-            android:layout_width="207dp"
-            android:layout_height="49dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginBottom="76dp"
             android:hint="Train Name"
             android:inputType="text"
             android:minHeight="48dp"
-            app:layout_constraintBottom_toTopOf="@+id/btnUpdate"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="1.0"
-            app:layout_constraintStart_toEndOf="@+id/etNoOfTickets"
-            app:layout_constraintTop_toBottomOf="@+id/etToStation" />
+            app:layout_constraintTop_toBottomOf="@+id/reservetime" />
+
+        <EditText
+            android:id="@+id/reservationDate"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:hint="Reservation Date"
+            android:inputType="date"
+            android:minHeight="48dp"
+            app:layout_constraintTop_toBottomOf="@+id/reservetrainName" />
+
+        <EditText
+            android:id="@+id/bookingDate"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:hint="Booking Date"
+            android:inputType="date"
+            android:minHeight="48dp"
+            app:layout_constraintTop_toBottomOf="@+id/reservationDate" />
+
+        <EditText
+            android:id="@+id/numberOfTickets"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:hint="Number of Tickets"
+            android:inputType="number"
+            android:minHeight="48dp"
+            app:layout_constraintTop_toBottomOf="@+id/bookingDate" />
+
+        <EditText
+            android:id="@+id/departureLocation"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:hint="Departure Location"
+            android:inputType="text"
+            android:minHeight="48dp"
+            app:layout_constraintTop_toBottomOf="@+id/numberOfTickets" />
+
+        <EditText
+            android:id="@+id/destination"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:hint="Destination"
+            android:inputType="text"
+            android:minHeight="48dp"
+            app:layout_constraintTop_toBottomOf="@+id/departureLocation" />
 
         <Button
             android:id="@+id/btnUpdate"
@@ -139,7 +112,7 @@
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/etTrainName" />
+            app:layout_constraintTop_toBottomOf="@+id/departureLocation" />
 
         <Button
             android:id="@+id/btnDelete"

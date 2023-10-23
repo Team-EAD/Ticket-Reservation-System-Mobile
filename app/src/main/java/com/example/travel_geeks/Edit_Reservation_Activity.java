@@ -20,13 +20,14 @@ import okhttp3.Response;
 
 public class Edit_Reservation_Activity extends AppCompatActivity {
 
-    private EditText ticketTypeEditText;
-    private EditText dateEditText;
-    private EditText timeEditText;
-    private EditText fromEditText;
-    private EditText toEditText;
-    private EditText ticketCountEditText;
-    private EditText trainNameEditText;
+    private EditText referenceIDEditText;
+    private EditText reserveTimeEditText;
+    private EditText reserveTrainNameEditText;
+    private EditText reservationDateEditText;
+    private EditText bookingDateEditText;
+    private EditText numberOfTicketsEditText;
+    private EditText departureLocationEditText;
+    private EditText destinationEditText;
 
     private Button updateButton;
     private Button deleteButton;
@@ -37,13 +38,15 @@ public class Edit_Reservation_Activity extends AppCompatActivity {
         setContentView(R.layout.activity_edit_reservation);
 
         // Initialize EditText fields and Buttons
-        ticketTypeEditText = findViewById(R.id.etTicketType);
-        dateEditText = findViewById(R.id.etDate);
-        timeEditText = findViewById(R.id.etTime);
-        fromEditText = findViewById(R.id.etFromStation);
-        toEditText = findViewById(R.id.etToStation);
-        ticketCountEditText = findViewById(R.id.etNoOfTickets);
-        trainNameEditText = findViewById(R.id.etTrainName);
+        referenceIDEditText = findViewById(R.id.referenceID);
+        reserveTimeEditText = findViewById(R.id.reservetime);
+        reserveTrainNameEditText = findViewById(R.id.reservetrainName);
+        reservationDateEditText = findViewById(R.id.reservationDate);
+        bookingDateEditText = findViewById(R.id.bookingDate);
+        numberOfTicketsEditText = findViewById(R.id.numberOfTickets);
+        departureLocationEditText = findViewById(R.id.departureLocation);
+        destinationEditText = findViewById(R.id.destination);
+
 
         updateButton = findViewById(R.id.btnUpdate);
         deleteButton = findViewById(R.id.btnDelete);
@@ -70,29 +73,31 @@ public class Edit_Reservation_Activity extends AppCompatActivity {
     // Method to update reservation
     private void updateReservation() {
         // Get values from EditText fields
-        String ticketType = ticketTypeEditText.getText().toString();
-        String date = dateEditText.getText().toString();
-        String time = timeEditText.getText().toString();
-        String from = fromEditText.getText().toString();
-        String to = toEditText.getText().toString();
-        String ticketCount = ticketCountEditText.getText().toString();
-        String trainName = trainNameEditText.getText().toString();
+        String referenceID = referenceIDEditText.getText().toString();
+        String reserveTime = reserveTimeEditText.getText().toString();
+        String reserveTrainName = reserveTrainNameEditText.getText().toString();
+        String reservationDate = reservationDateEditText.getText().toString();
+        String bookingDate = bookingDateEditText.getText().toString();
+        String numberOfTickets = numberOfTicketsEditText.getText().toString();
+        String departureLocation = departureLocationEditText.getText().toString();
+        String destination = destinationEditText.getText().toString();
 
         // Create a JSON request body with updated reservation data
         RequestBody requestBody = new FormBody.Builder()
-                .add("ticket_type", ticketType)
-                .add("date", date)
-                .add("time", time)
-                .add("from", from)
-                .add("to", to)
-                .add("ticket_count", ticketCount)
-                .add("train_name", trainName)
+                .add("referenceID", referenceID)
+                .add("reserveTime", reserveTime)
+                .add("reserveTrainName", reserveTrainName)
+                .add("reservationDate", reservationDate)
+                .add("bookingDate", bookingDate)
+                .add("numberOfTickets", numberOfTickets)
+                .add("departureLocation", departureLocation)
+                .add("destination", destination)
                 .build();
 
         // Make an API PUT request to update the reservation
         OkHttpClient client = new OkHttpClient();
         Request request = new Request.Builder()
-                .url("YOUR_API_UPDATE_ENDPOINT_URL")
+                .url("https://localhost:44304/api/TicketReservation/id")
                 .put(requestBody)
                 .build();
 
