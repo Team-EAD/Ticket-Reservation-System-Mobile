@@ -139,7 +139,7 @@ public class Create_Account extends AppCompatActivity {
 
         // Replace "YOUR_API_ENDPOINT_URL" with the actual URL of your backend API
         Request request = new Request.Builder()
-                .url("https://localhost:44304/api/Traveler\n")
+                .url("https://localhost:44304/api/Traveler")
                 .post(formBody)
                 .build();
 
