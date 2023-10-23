@@ -10,7 +10,12 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.travel_geeks.Adapter.ReservationAdapter;
 import com.example.travel_geeks.Model.Reservation;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import okhttp3.Call;
@@ -39,7 +44,7 @@ public class View_Reservation_Activity extends AppCompatActivity {
     private void fetchReservationsFromApi() {
         OkHttpClient client = new OkHttpClient();
         Request request = new Request.Builder()
-                .url("YOUR_API_ENDPOINT_URL") // Replace with your API endpoint URL
+                .url("https://localhost:44304/api/TicketReservation")
                 .build();
 
         client.newCall(request).enqueue(new Callback() {
@@ -47,12 +52,7 @@ public class View_Reservation_Activity extends AppCompatActivity {
             public void onFailure(Call call, IOException e) {
                 // Handle network error
                 e.printStackTrace();
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        Toast.makeText(View_Reservation_Activity.this, "Error While loading the data", Toast.LENGTH_SHORT).show();
-                    }
-                });
+                runOnUiThread(() -> Toast.makeText(View_Reservation_Activity.this, "Error While loading the data", Toast.LENGTH_SHORT).show());
             }
 
             @Override
@@ -62,28 +62,39 @@ public class View_Reservation_Activity extends AppCompatActivity {
                     // Parse JSON response and create a list of Reservation objects
                     final List<Reservation> reservations = parseReservationsFromJson(jsonResponse);
 
-                    runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            // Update the RecyclerView adapter with the reservations
-                            adapter = new ReservationAdapter(reservations);
-                            recyclerView.setAdapter(adapter);
-                        }
+                    runOnUiThread(() -> {
+                        // Update the RecyclerView adapter with the reservations
+                        adapter = new ReservationAdapter(reservations);
+                        recyclerView.setAdapter(adapter);
                     });
                 } else {
-                    runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            Toast.makeText(View_Reservation_Activity.this, "Error", Toast.LENGTH_SHORT).show();
-                        }
-                    });
+                    runOnUiThread(() -> Toast.makeText(View_Reservation_Activity.this, "Error", Toast.LENGTH_SHORT).show());
                 }
             }
         });
     }
 
     private List<Reservation> parseReservationsFromJson(String jsonResponse) {
-
-        return null;
+        List<Reservation> reservations = new ArrayList<>();
+        try {
+            JSONArray jsonArray = new JSONArray(jsonResponse);
+            for (int i = 0; i < jsonArray.length(); i++) {
+                JSONObject jsonObject = jsonArray.getJSONObject(i);
+                Reservation reservation = new Reservation();
+                reservation.setReferenceID(jsonObject.getString("referenceID"));
+                reservation.setTime(jsonObject.getString("time"));
+                reservation.setReservetrainName(jsonObject.getString("reservetrainName"));
+                reservation.setReservetrainID(jsonObject.getString("reservetrainID"));
+                reservation.setReservationDate(jsonObject.getString("reservationDate"));
+                reservation.setBookingDate(jsonObject.getString("bookingDate"));
+                reservation.setNumberOfTickets(jsonObject.getInt("numberOfTickets"));
+                reservation.setDepartureLocation(jsonObject.getString("departureLocation"));
+                reservation.setDestination(jsonObject.getString("destination"));
+                reservations.add(reservation);
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return reservations;
     }
 }

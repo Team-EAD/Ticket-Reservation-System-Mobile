@@ -8,6 +8,9 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.IOException;
 
 import okhttp3.Call;
@@ -51,6 +54,8 @@ public class Edit_Reservation_Activity extends AppCompatActivity {
         updateButton = findViewById(R.id.btnUpdate);
         deleteButton = findViewById(R.id.btnDelete);
 
+        fetchReservationData("referenceIDEditText");
+
         // Set a click listener for the update button
         updateButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -66,6 +71,60 @@ public class Edit_Reservation_Activity extends AppCompatActivity {
             public void onClick(View v) {
                 // Handle delete reservation logic here
                 deleteReservation();
+            }
+        });
+    }
+
+    // Method to fetch reservation data based on ID
+    private void fetchReservationData(String reservationID) {
+        OkHttpClient client = new OkHttpClient();
+        Request request = new Request.Builder()
+                .url("https://localhost:44304/api/TicketReservation/" + reservationID)
+                .build();
+
+        client.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                e.printStackTrace();
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        Toast.makeText(Edit_Reservation_Activity.this, "Failed to fetch reservation data. Please try again.", Toast.LENGTH_SHORT).show();
+                    }
+                });
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                if (response.isSuccessful()) {
+                    final String jsonResponse = response.body().string();
+                    // Update the UI with the fetched reservation data
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            try {
+                                JSONObject jsonObject = new JSONObject(jsonResponse);
+                                referenceIDEditText.setText(jsonObject.getString("referenceID"));
+                                reserveTimeEditText.setText(jsonObject.getString("time"));
+                                reserveTrainNameEditText.setText(jsonObject.getString("reservetrainName"));
+                                reservationDateEditText.setText(jsonObject.getString("reservationDate"));
+                                bookingDateEditText.setText(jsonObject.getString("bookingDate"));
+                                numberOfTicketsEditText.setText(String.valueOf(jsonObject.getInt("numberOfTickets")));
+                                departureLocationEditText.setText(jsonObject.getString("departureLocation"));
+                                destinationEditText.setText(jsonObject.getString("destination"));
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    });
+                } else {
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            Toast.makeText(Edit_Reservation_Activity.this, "Failed to fetch reservation data. Please try again.", Toast.LENGTH_SHORT).show();
+                        }
+                    });
+                }
             }
         });
     }
@@ -97,7 +156,7 @@ public class Edit_Reservation_Activity extends AppCompatActivity {
         // Make an API PUT request to update the reservation
         OkHttpClient client = new OkHttpClient();
         Request request = new Request.Builder()
-                .url("https://localhost:44304/api/TicketReservation/id")
+                .url("https://localhost:44304/api/TicketReservation/" + referenceIDEditText)
                 .put(requestBody)
                 .build();
 
@@ -145,7 +204,7 @@ public class Edit_Reservation_Activity extends AppCompatActivity {
         // Make an API DELETE request to delete the reservation
         OkHttpClient client = new OkHttpClient();
         Request request = new Request.Builder()
-                .url("YOUR_API_DELETE_ENDPOINT_URL")
+                .url("https://localhost:44304/api/TicketReservation/" + referenceIDEditText)
                 .delete()
                 .build();
 

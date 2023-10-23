@@ -28,6 +28,8 @@ public class Create_Account extends AppCompatActivity {
     private EditText mobileEditText;
     private EditText emailEditText;
     private EditText passwordEditText;
+
+    private EditText dobEditText;
     private Button signUpButton;
     private TextView tvSignIn;
 
@@ -41,6 +43,7 @@ public class Create_Account extends AppCompatActivity {
         firstNameEditText = findViewById(R.id.etFirstName);
         lastNameEditText = findViewById(R.id.etLastName);
         nicEditText = findViewById(R.id.etNIC);
+        dobEditText = findViewById(R.id.etDoB);
         CountryEditText = findViewById(R.id.etCountry);
         mobileEditText = findViewById(R.id.etPhoneNumber);
         emailEditText = findViewById(R.id.etEmail);
@@ -57,6 +60,7 @@ public class Create_Account extends AppCompatActivity {
                 String firstName = firstNameEditText.getText().toString();
                 String lastName = lastNameEditText.getText().toString();
                 String nic = nicEditText.getText().toString();
+                String dob = dobEditText.getText().toString();
                 String country = CountryEditText.getText().toString();
                 String mobile = mobileEditText.getText().toString();
                 String email = emailEditText.getText().toString();
@@ -105,7 +109,7 @@ public class Create_Account extends AppCompatActivity {
                 }
 
                 // Make API call for registration
-                registerUser(firstName, lastName, nic, country, mobile, email, password);
+                registerUser(firstName, lastName, nic, dob, country, mobile, email, password);
             }
 
             // Email validation method
@@ -125,12 +129,13 @@ public class Create_Account extends AppCompatActivity {
         });
     }
 
-    private void registerUser(String firstName, String lastName, String nic, String country, String mobile, String email, String password) {
+    private void registerUser(String firstName, String lastName, String nic, String dob, String country, String mobile, String email, String password) {
         OkHttpClient client = new OkHttpClient();
         FormBody formBody = new FormBody.Builder()
                 .add("firstName", firstName)
                 .add("lastName", lastName)
                 .add("nic", nic)
+                .add("dob", dob)
                 .add("country", country)
                 .add("phone", mobile)
                 .add("email", email)
